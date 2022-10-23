@@ -9,6 +9,9 @@ Heyyyyyyyyyyyyyyyyyyy so to liek use it and stuffs you need to
 #4 set up a developer account for spotify(follow the image)
 
 ![image](https://user-images.githubusercontent.com/105751836/197422863-7bbf0236-5a67-44e8-914e-2ba57ea80b5d.png)
+(the links in image)
+https://developer.spotify.com/dashboard/login
+https://developer.spotify.com/documentation/general/guides/authorization/app-settings/
 
 #5 cause i suck at coding and i couldnt figure out the authentication for the spotify api you have to go to this(https://developer.spotify.com/console/get-users-currently-playing-track/) website, look for a box called 'Oauth Token' and then next to it it should say 'Get Token', click that and then it should say 'Required scopes for this endpoint' simpily click the box underneath that and then click Request Token and then copy the token in the 'Oauth Token' box and paste it into the ACCESS_TOKEN variable
 
