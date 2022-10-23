@@ -34,7 +34,7 @@ def get_current_song(ACCESS_TOKEN):
 
 def rr_bio_change():
     rec_resp = requests.put(f'https://accounts.rec.net/account/me/bio', headers= {"Authorization": token}, 
-        data = {'bio':f"istening to:\n{get_current_song(ACCESS_TOKEN)}\nactually a fox girl"}
+        data = {'bio':f"Listening to:\n{get_current_song(ACCESS_TOKEN)}"}
     )
     print(rec_resp)
     print(get_current_song(ACCESS_TOKEN))
