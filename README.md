@@ -1,25 +1,25 @@
-Heyyyyyyyyyyyyyyyyyyy so to liek use it and stuffs you need to 
+Heyiiaa, this is a script that changes your bio based on what song your playing right now. due to how rec room caches bios you cant see it update in realtime. if you change games it should update!
 
-#1 open the script in notepad
+How To Run:
 
-#2 find the variables called USERNAME, PASSWORD and ACCESS_TOKEN 
+#1 Download the file from the releases section then open the file in notepad
+#2 near the top there should be some text saying 'Rec Room Auth Stuff' and below it there are 2 variables called USERNAME and PASSWORD, enter your Rec Room username/password here!
+#3 go to https://developer.spotify.com/dashboard/login and login in to your spotify account, when youve logged in click the 'create an app' button and give it a random name and discription and then click create. 
+You should be brought to a screen that looks like this. 
+![image](https://user-images.githubusercontent.com/105751836/197631198-9cd572f9-d68c-44fa-92ce-c0a9cd49e1a6.png)
+Click the 'Edit Settings' button near the bottom of the screen you should see a box called 'redirect_uri' click on the box and copy and paste this ->(put link here me) in there and hit add then paste the same link into the 'redirct_uri' varible on the script!
+#4 click the x button on that menu and then on the left of the page there should be a thing called a 'client_id' copy that and paste into the script into the variable called you guessed it client_id, under taht a thing called 'show client secret' click that and then paste the client_secret into the 'client_secret' varible on the script.
+5# hit CTRL + S then close notepad
+6# open command prompt and type cd then the directory the script is in and hit enter
+#7 type py RecRoomSpotifyCurrentlyPlayingScript.py and enter 
 
-#3 enter your Rec Room account details in the USERNAME and PASSWORD variables (in between the "")
-
-#4 set up a developer account for spotify(follow the image)
-
-![image](https://user-images.githubusercontent.com/105751836/197422863-7bbf0236-5a67-44e8-914e-2ba57ea80b5d.png)
-(the links in image)
-https://developer.spotify.com/dashboard/login
-https://developer.spotify.com/documentation/general/guides/authorization/app-settings/
-
-#5 cause i suck at coding and i couldnt figure out the authentication for the spotify api you have to go to this(https://developer.spotify.com/console/get-users-currently-playing-track/) website, look for a box called 'Oauth Token' and then next to it it should say 'Get Token', click that and then it should say 'Required scopes for this endpoint' simpily click the box underneath that and then click Request Token and then copy the token in the 'Oauth Token' box and paste it into the ACCESS_TOKEN variable
-
-#6 press CTRL + S, then close the file and run in command prompt!
-
-
-should note that the token becomes invaild in a hour so you will have to make a new one every hour(i know its really annoying i should just figure out how to do da auth stuff but its confusing if anyone can halp me please message me LameLexi#7004)
+Congrats! you have funny spotify in your bio now!
+if you have any errors contact me a LameLexi#7004
 
 
 
+
+
+
+pls dont bully me for my code im workin on it
 ok uh, bye bye :3
