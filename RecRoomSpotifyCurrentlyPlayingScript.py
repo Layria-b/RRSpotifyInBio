@@ -1,13 +1,13 @@
 # by LameLexi#7004
 # Enjoy :3
 
-from types import NoneType
 from recnetlogin import RecNetLogin
 import requests
 from twisted.internet import task, reactor
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
+recroom_bio = ''
 
 timeout = 60.0
 
@@ -46,7 +46,7 @@ def get_current_song(scope, client_id, client_secret, redirect_uri):
 
 def rr_bio_change():
     rec_resp = requests.put(f'https://accounts.rec.net/account/me/bio', headers= {"Authorization": token}, 
-        data = {'bio':f"Listening To:\n{get_current_song(scope, client_id, client_secret, redirect_uri)}"} # write \n for a new line in ur bio then write what u please!
+        data = {'bio':f"Listening To:\n{get_current_song(scope, client_id, client_secret, redirect_uri)}\n{recroom_bio}"} # write \n for a new line in ur bio then write what u please!
     )
     print(rec_resp)
     print(get_current_song(scope, client_id, client_secret, redirect_uri))
