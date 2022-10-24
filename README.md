@@ -21,7 +21,8 @@ Click the 'Edit Settings' button near the bottom of the screen you should see a 
 
 
 Congrats! you have funny spotify in your bio now!
-if you have any errors contact me a LameLexi#7004
+
+if you have any errors contact me at LameLexi#7004
 
 
 
@@ -29,4 +30,5 @@ if you have any errors contact me a LameLexi#7004
 
 
 pls dont bully me for my code im workin on it
+
 ok uh, bye bye :3
