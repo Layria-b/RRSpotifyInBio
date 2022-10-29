@@ -7,9 +7,10 @@ from twisted.internet import task, reactor
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-recroom_bio = ''
-
 timeout = 60.0
+
+# if you wanna add anything else to your bio besides what your currently playing put it here
+recroom_bio = ''
 
 #Rec Room Auth Stuff
 USERNAME = ""
@@ -35,18 +36,17 @@ def get_current_song(scope, client_id, client_secret, redirect_uri):
 
     spotify_resp = sp.current_user_playing_track()
 
-    try:
+    if spotify_resp['is_playing'] == False:
+        return 'Nothing Right Now!'
+    else:
         track_name = spotify_resp['item']['name']
         artists = [artist for artist in spotify_resp['item']['artists']]
         artist_names = ', '.join([artist['name'] for artist in artists])
-        return f"{track_name} by {artist_names}"
-    except TypeError:
-        return "Nothing Right Now"
-
+        return f'{track_name} by {artist_names}!'
 
 def rr_bio_change():
     rec_resp = requests.put(f'https://accounts.rec.net/account/me/bio', headers= {"Authorization": token}, 
-        data = {'bio':f"Listening To:\n{get_current_song(scope, client_id, client_secret, redirect_uri)}\n{recroom_bio}"} # write \n for a new line in ur bio then write what u please!
+        data = {'bio':f"Listening To:\n{get_current_song(scope, client_id, client_secret, redirect_uri)}\n{recroom_bio}"}
     )
     print(rec_resp)
     print(get_current_song(scope, client_id, client_secret, redirect_uri))
