@@ -46,7 +46,7 @@ def get_current_song(scope, client_id, client_secret, redirect_uri):
 
 def rr_bio_change():
     rec_resp = requests.put(f'https://accounts.rec.net/account/me/bio', headers= {"Authorization": token}, 
-        data = {'bio':f"Listening To:\n{get_current_song(scope, client_id, client_secret, redirect_uri)}\n{recroom_bio}"}
+        data = {'bio':f"Listening To:\n{get_current_song(scope, client_id, client_secret, redirect_uri)}\n"} # if you wanna add more stuff to your bio add it after the '\n'
     )
     print(rec_resp)
     print(get_current_song(scope, client_id, client_secret, redirect_uri))
