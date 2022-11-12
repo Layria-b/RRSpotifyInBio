@@ -15,4 +15,4 @@ Thanks to betterthanyou#8490 for making the icon for it cuz im lazy and didnt wa
 Any questions, issues etc. dm me
 LameLexi#7004
 
-NOTE; your bio will NOT update in real time due to rec room bio cacheing
+NOTE: your bio will NOT update in real time due to rec room bio cachein also when u run the program it will create a .cache file you NEED to keep this in the same directory for the program to work, im not sure if theres a way to bundle the file in the exe as spotipy creates it
