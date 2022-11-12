@@ -91,7 +91,7 @@ def bioconfig(bioconfirm):
 
 
 if config.getboolean('DEFAULT', 'savebio') == False:
-    bioconfig(bioconfirm)
+    bio = bioconfig(bioconfirm)
 elif config.getboolean('DEFAULT', 'savebio') == True: 
     print('Found saved bio!')
     print('Listening to:')
