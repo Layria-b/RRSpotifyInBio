@@ -1,8 +1,16 @@
-Hey! This is a thing that puts what your currently listening to on spotify into your bio in rec room! 
-All you need to do run the .exe file and i dont feel like writing this rn ill do it later maybe idk
+Hello! This is a puts what you currently listening to on spotify in your Rec Room bio.
+
+All you need to do is download the newest release from the releases section and then run the program, 
+
+you should see a tab that opens telling you to log in to spotify, Login to your spotify account there.
+
+then you can go back to the app and follow the intructions!
 
 
-Thanks to betterthanyou#8490 for making the image cuz im lazy 
 
-Any questions, issues etc dm me
+
+
+Thanks to betterthanyou#8490 for making the icon for it cuz im lazy and didnt want to install photoshop
+ 
+Any questions, issues etc. dm me
 LameLexi#7004
