@@ -14,3 +14,5 @@ Thanks to betterthanyou#8490 for making the icon for it cuz im lazy and didnt wa
  
 Any questions, issues etc. dm me
 LameLexi#7004
+
+NOTE; your bio will NOT update in real time due to rec room bio cacheing
