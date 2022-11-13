@@ -9,9 +9,32 @@ from dotenv import load_dotenv
 
 timeout = 60.0
 
-load_dotenv()
 config = configparser.ConfigParser()
 config.read("config.ini")
+load_dotenv()
+
+try: 
+    print(config['CONFIGCHECK']['check'])
+except:
+    print('No config file found')
+    print('Creating plain config file...')
+    config = configparser.ConfigParser()
+
+    config.add_section('CONFIGCHECK')
+    config['CONFIGCHECK']['check'] = 'Config file found.'
+    
+    config.add_section('BIO')
+    config['BIO']['savebio'] = 'false'
+    config['BIO']['bio'] = ''
+
+    config.add_section('LOGIN')
+    config['LOGIN']['storelogin'] = 'false'
+    config['LOGIN']['yourusername'] = ''
+    config['LOGIN']['yourpassword'] = ''
+
+    with open("config.ini", 'w') as f:
+        config.write(f)
+
 
 if config.getboolean('LOGIN', 'storelogin') == True:
     YOURUSERNAME = config['LOGIN']['YOURUSERNAME']
