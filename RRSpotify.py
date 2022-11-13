@@ -6,26 +6,38 @@ from spotipy.oauth2 import SpotifyOAuth
 import configparser
 import os
 from dotenv import load_dotenv
-import sys
 
 timeout = 60.0
-song_compare = ''
-
-def resource_path(relative_path):
-    try:
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
-
-    return os.path.join(base_path, relative_path)
 
 load_dotenv()
 config = configparser.ConfigParser()
-config.read(resource_path("config.ini")) 
+config.read("config.ini")
 
-if config.getboolean('DEFAULT', 'storelogin') == True:
-    YOURUSERNAME = os.environ['YOURUSERNAME']
-    YOURPASSWORD = os.environ['YOURPASSWORD']
+if config.getboolean('LOGIN', 'storelogin') == True:
+    YOURUSERNAME = config['LOGIN']['YOURUSERNAME']
+    YOURPASSWORD = config['LOGIN']['YOURPASSWORD']
+    use_found_login = input('Found login would you like to use?')
+    while use_found_login not in {'y', 'n'}:
+        print('Enter y/n')
+        use_found_login = input('Found login would you like to use?')
+    if use_found_login == 'n': 
+        YOURUSERNAME = (input('Username: ')).lower()
+        YOURPASSWORD = (input('Password: '))
+        passwordconfirm = (input(f'You entered {YOURUSERNAME} as your username and {YOURPASSWORD} as your password, confirm(y)?'))
+        while passwordconfirm != 'y':
+            YOURUSERNAME = (input('Username: ')).lower()
+            YOURPASSWORD = (input('Password: '))
+            passwordconfirm = (input(f'You entered {YOURUSERNAME} as your username and {YOURPASSWORD} as your password, confirm(y)?'))
+        storelogin = input('Would you like your login to be stored for next time(y/n)? ')
+        while storelogin not in {'y', 'n'}:
+            print('Enter y/n')
+            storelogin = input('Would you like your login to be stored for next time(y/n)? ')
+        if storelogin == 'y':
+            config['LOGIN']['storelogin'] = 'true'
+            config['LOGIN']['YOURUSERNAME'] = YOURUSERNAME
+            config['LOGIN']['YOURPASSWORD'] = YOURPASSWORD
+            with open("config.ini", 'w') as configfile:
+                config.write(configfile)
 else:
     print('Enter the username/password of your account!')
     YOURUSERNAME = (input('Username: ')).lower()
@@ -40,15 +52,10 @@ else:
         print('Enter y/n')
         storelogin = input('Would you like your login to be stored for next time(y/n)? ')
     if storelogin == 'y':
-        config['DEFAULT']['storelogin'] = 'true'
-        import dotenv
-        dotenv_file = dotenv.find_dotenv()
-        dotenv.load_dotenv(dotenv_file)
-        os.environ["YOURUSERNAME"] = YOURUSERNAME
-        dotenv.set_key(dotenv_file, "YOURUSERNAME", os.environ["YOURUSERNAME"])
-        os.environ["YOURPASSWORD"] = YOURPASSWORD
-        dotenv.set_key(dotenv_file, "YOURPASSWORD", os.environ["YOURPASSWORD"])
-        with open(resource_path("config.ini"), 'w') as configfile:
+        config['LOGIN']['storelogin'] = 'true'
+        config['LOGIN']['YOURUSERNAME'] = YOURUSERNAME
+        config['LOGIN']['YOURPASSWORD'] = YOURPASSWORD
+        with open("config.ini", 'w') as configfile:
             config.write(configfile)
         
 client_id = os.environ['client_id']
@@ -75,28 +82,25 @@ def bioconfig(bioconfirm):
             print('Enter y/n')
             savebio = input('Would you like the bio you entered to be saved next time you run the program(y/n)? ')
         if savebio == 'y':
-            import dotenv
-            config['DEFAULT']['savebio'] = 'true'
-            dotenv_file = dotenv.find_dotenv()
-            dotenv.load_dotenv(dotenv_file)
-            os.environ["recroombio"] = bio
-            dotenv.set_key(dotenv_file, "recroombio", os.environ["recroombio"])
+            config['BIO']['savebio'] = 'true'
+            config['BIO']['bio'] = bio
         else:
-            config['DEFAULT']['savebio'] = 'false'
+            config['BIO']['savebio'] = 'false'
 
-    with open(resource_path("config.ini"), 'w') as configfile:
+    with open("config.ini", 'w') as configfile:
         config.write(configfile)
 
     return bio
 
+config.read("config.ini")
 
-if config.getboolean('DEFAULT', 'savebio') == False:
+if config.getboolean('BIO', 'savebio') == False:
     bio = bioconfig(bioconfirm)
-elif config.getboolean('DEFAULT', 'savebio') == True: 
+elif config.getboolean('BIO', 'savebio') == True: 
     print('Found saved bio!')
     print('Listening to:')
     print('Example song by Example')
-    print(os.environ["recroombio"])
+    print(config['BIO']['bio'])
     bioconfirm = input('Confirm you want your bio to be this(y/n)?')
     while bioconfirm not in {'y', 'n'}:
         print('Enter y/n')
@@ -104,7 +108,7 @@ elif config.getboolean('DEFAULT', 'savebio') == True:
     if bioconfirm == 'n':
         bioconfig(bioconfirm)
     else: 
-        bio = os.environ["recroombio"]
+        bio = config['BIO']['bio']
 
 def login(YOURUSERNAME, YOURPASSWORD):
   rnl = RecNetLogin(username=YOURUSERNAME, password=YOURPASSWORD)
