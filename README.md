@@ -1,18 +1,12 @@
-Hello! This is a puts what you currently listening to on spotify in your Rec Room bio.
+Hello! This is a puts what you currently listening to on spotify in your Rec Room bio!
 
-All you need to do is download the newest release from the releases section and then run the program, 
+It is not coded very well and is just generally not how i wanted it, HOWEVER i have enjoyed making it.
 
-you should see a tab that opens telling you to log in to spotify, Login to your spotify account there.
+How to run:
+1. Download latest release and run the .exe file!
+2. You may be prompted to login into spotify in a browser window, Do so
+3. Follow the instuctions in the console window 
 
-then you can go back to the app and follow the intructions!
+Thanks to betterthenyou#8490 for making the icon!
 
-
-
-
-
-Thanks to betterthanyou#8490 for making the icon for it cuz im lazy and didnt want to install photoshop
- 
-Any questions, issues etc. dm me
-LameLexi#7004
-
-NOTE: your bio will NOT update in real time due to rec room bio cachein also when u run the program it will create a .cache file you NEED to keep this in the same directory for the program to work, im not sure if theres a way to bundle the file in the exe as spotipy creates it
+if you have any issues/need help, Message me: LameLexi#7004
