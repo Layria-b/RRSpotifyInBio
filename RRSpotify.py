@@ -1,36 +1,26 @@
-from recnetlogin import RecNetLogin
-import requests
-from twisted.internet import task, reactor
-import spotipy
-from spotipy.oauth2 import SpotifyOAuth
-import configparser
-import os
-from dotenv import load_dotenv
-
-timeout = 60.0
-
 config = configparser.ConfigParser()
 config.read("config.ini")
-load_dotenv()
+load_dotenv(resource_path('.env'))
 
 try: 
-    print(config['CONFIGCHECK']['check'])
+    print(config['DONTCHANGE']['config_check'])
 except:
     print('No config file found')
     print('Creating plain config file...')
     config = configparser.ConfigParser()
 
-    config.add_section('CONFIGCHECK')
-    config['CONFIGCHECK']['check'] = 'Config file found.'
-    
+    config.add_section('DONTCHANGE')
+    config['DONTCHANGE']['config_check'] = 'Config file found.'
+    config['DONTCHANGE']['song_compare'] = 'Placeholder'
+
     config.add_section('BIO')
     config['BIO']['savebio'] = 'false'
     config['BIO']['bio'] = ''
 
     config.add_section('LOGIN')
     config['LOGIN']['storelogin'] = 'false'
-    config['LOGIN']['yourusername'] = ''
-    config['LOGIN']['yourpassword'] = ''
+    config['LOGIN']['YOURUSERNAME'] = ''
+    config['LOGIN']['YOURPASSWORD'] = ''
 
     with open("config.ini", 'w') as f:
         config.write(f)
@@ -150,25 +140,36 @@ def get_current_song(scope, client_id, client_secret, redirect_uri):
     
     spotify_resp = sp.current_user_playing_track()
 
+    if spotify_resp['is_playing'] == False:
+        song = 'Not Playing Any Songs Currently'
+        return song
     try:
         track_name = spotify_resp['item']['name']
         artists = [artist for artist in spotify_resp['item']['artists']]
         artist_names = ', '.join([artist['name'] for artist in artists])
         song = f'{track_name} by {artist_names}!'
-    except TypeError or spotify_resp['is_playing'] == False:
+    except None or TypeError:
         song =  'Nothing Right Now!'
     return song
 
 def rr_bio_change(token, bio):
-    rec_resp = requests.put(f'https://accounts.rec.net/account/me/bio', headers= {"Authorization": token}, 
-    data = {'bio':f"Listening To:\n{get_current_song(scope, client_id, client_secret, redirect_uri)}\n{bio}"})
-    if rec_resp.status_code == 401:
-        token = login(YOURUSERNAME, YOURPASSWORD)
-        rec_resp = requests.put(f'https://accounts.rec.net/account/me/bio', headers= {"Authorization": token}, 
-        data = {'bio':f"Listening To:\n{get_current_song(scope, client_id, client_secret, redirect_uri)}\n{bio}"})
+    song = get_current_song(scope, client_id, client_secret, redirect_uri)
 
-    print(f'Currently playing song: {get_current_song(scope, client_id, client_secret, redirect_uri)}')
-    print('Bio Change Success!')
+    if song != config['DONTCHANGE']['song_compare']:
+
+        config['DONTCHANGE']['song_compare'] = song
+        with open("config.ini", 'w') as configfile:
+            config.write(configfile)
+
+        rec_resp = requests.put(f'https://accounts.rec.net/account/me/bio', headers= {"Authorization": token}, 
+        data = {'bio':f"Listening To:\n{song}\n{bio}"})
+        if rec_resp.status_code == 401:
+            token = login(YOURUSERNAME, YOURPASSWORD)
+            rec_resp = requests.put(f'https://accounts.rec.net/account/me/bio', headers= {"Authorization": token}, 
+            data = {'bio':f"Listening To:\n{song}\n{bio}"})
+
+        print(f'Currently playing song: {song}')
+        print('Bio Change Success!')
     pass
 
 l = task.LoopingCall(rr_bio_change, token, bio)
